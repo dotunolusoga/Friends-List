@@ -11,10 +11,13 @@ $(document).ready(init);
 function init(){
   hideForm();
 
+}
+
 $('#contactForm').click(revealForm);
 
 $('#submitButton').click(submitForm);
-}
+
+
 
 function submitForm(event){
   event.preventDefault();
@@ -24,6 +27,21 @@ function submitForm(event){
   var $twitter   = $('#twitterHandle').val();
   var $instagram = $('#instagram').val();
   var $photo     = $('#photoUrl').val();
+
+  var $tr          = $('<tr></tr>');
+  var $tdPhoto     = $('<td class="image"><img src="' + $photo + '"</td>');
+  $tr.append($tdPhoto);
+  var $tdName      = $('<td>' + $name + '</td>');
+  $tr.append($tdName);
+  var $tdPhone     = $('<td>' + $phone + '</td>');
+  $tr.append($tdPhone);
+  var $tdTwitter   = $('<td>' + $twitter + '</td>');
+  $tr.append($tdTwitter);
+  var $tdInstagram = $('<td>' + $instagram + '</td>');
+  $tr.append($tdInstagram);
+
+  $('.target').append($tr);
+
 
   var contacts = { name: $name, phone: $phone, twitter: $twitter, instagram: $instagram, photo: $photo };
   var contactList = JSON.stringify(contacts);
