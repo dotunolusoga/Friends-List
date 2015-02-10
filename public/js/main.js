@@ -29,7 +29,7 @@ function submitForm(event){
   var $photo     = $('#photoUrl').val();
 
   var $tr          = $('<tr></tr>');
-  var $tdPhoto     = $('<td class="image"><img src="' + $photo + '"</td>');
+  var $tdPhoto     = $('<td class="image"><img src="' + $photo + '"></td>');
   $tr.append($tdPhoto);
   var $tdName      = $('<td>' + $name + '</td>');
   $tr.append($tdName);
@@ -46,6 +46,7 @@ function submitForm(event){
   var contacts = { name: $name, phone: $phone, twitter: $twitter, instagram: $instagram, photo: $photo };
   var contactList = JSON.stringify(contacts);
   $.post(url, contactList, function(res){
+    $tr.attr('data-uuid', res.name)
   });
 
 };
@@ -59,3 +60,15 @@ function revealForm(){
   var $friendsForm = $('#friendsForm').show();
   return $friendsForm;
 }
+
+$.get(url, function(data){
+   Object.keys(data).forEach(function(uuid){
+   addContactsToTable(uuid, data[uuid]);
+   });
+});
+
+function addContactsToTable(uuid, data) {
+   var $tr = $('<tr><td><img src="' + data.photo + '"></td><td>' + data.name + '</td><td>' + data.phone + '</td><td>' + data.twitter + '</td><td>' + data.instagram + '</td><td><button class="removeButton">Remove</button></td></tr>');
+      //addRowToTable(uuid, data[uuid]);
+   $('.target').append($tr);
+};
