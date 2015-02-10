@@ -9,10 +9,58 @@
   </head>
   <body>
 
-    <div class="container">
-      <h1>My Site Title</h1>
-    </div>
+  <div class="row">
+    <div>
+      <h1>My Friends List</h1>
 
+      <button id="contactForm" class="radius">Add New Contact</button>
+      <div id="friendsForm">
+        <form>
+          <div class="row collapse">
+            <div class="small-3 columns">
+              <span class="prefix">Name</span>
+            </div>
+            <div class="small-9 columns">
+              <input id="contactName" type="text" placeholder="Enter your Name">
+            </div>
+          </div>
+          <div class="row collapse">
+            <div class="small-3 columns">
+              <span class="prefix">Phone</span>
+            </div>
+            <div class="small-9 columns">
+              <input id="contactPhone" type="text" placeholder="Enter phone number">
+            </div>
+          </div>
+          <div class="row collapse">
+            <div class="small-3 columns">
+              <span class="prefix">Twitter</span>
+            </div>
+            <div class="small-9 columns">
+              <input id="twitterHandle" type="text" placeholder="Enter your Twitter handle">
+            </div>
+          </div>
+          <div class="row collapse">
+            <div class="small-3 columns">
+              <span class="prefix">Instagram</span>
+            </div>
+            <div class="small-9 columns">
+              <input id="instagram" type="text" placeholder="Enter Instagram handle">
+            </div>
+          </div>
+          <div class="row collapse">
+            <div class="small-3 columns">
+              <span class="prefix">Photo</span>
+            </div>
+            <div class="small-9 columns">
+              <input id="photoUrl" type="text" placeholder="Enter photo URL">
+            </div>
+          </div>
+          <button id="submitButton" class="radius">Submit</button>
+        </form>
+      </div>
+    </div>
+</div>
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
     <script src="js/main.js"></script>
   </body>
