@@ -1,10 +1,68 @@
+/* jshint browser: true, jquery: true */
+
 'use strict';
+
+//var $        = require('jquery'),
+    //_        = require('lodash'),
+    //Firebase = require('firebase');
 
 function hello() {
   return 'world';
 }
 
-var url = 'https://friends-list.firebaseio.com/friends-list.json';
+var FIREBASE_URL = 'https://friends-list.firebaseio.com',
+    fb           = new Firebase(FIREBASE_URL),
+    usersFbUrl;
+
+if (fb.getAuth()) {
+  $('.login').remove();
+  $('.app').toggleClass('hidden');
+
+  usersFbUrl = FIREBASE_URL + '/users/' + fb.getAuth().uid + '/data';
+
+  $.get(usersFbUrl + '/friends-list.json', function (res) {
+    Object.keys(res).forEach(function (uuid) {
+      addContactsToTable(uuid, res[uuid]);
+    });
+  });
+}
+
+$('.login input[type="button"]').click(function (event) {
+  var $loginForm = $(event.target.closest('form')),
+      email      = $loginForm.find('[type="email"]').val(),
+      pass       = $loginForm.find('[type="password"]').val(),
+      data       = {email: email, password: pass};
+
+  registerAndLogin(data, function (err, auth) {
+    if (err) {
+      $('.error').text(err);
+    } else {
+      location.reload(true);
+    }
+  });
+});
+
+$('.login form').submit(function(event){
+  var $loginForm = $(event.target),
+      email      = $loginForm.find('[type="email"]').val(),
+      pass       = $loginForm.find('[type="password"]').val(),
+      data       = {email: email, password: pass};
+
+  event.preventDefault();
+
+  fb.authWithPassword(data, function(err, auth) {
+    if (err) {
+      $('.error').text(err);
+    } else {
+      location.reload(true);
+    }
+  });
+});
+
+$('.logout').click(function omghaha(){
+  fb.unauth();
+  location.reload(true);
+})
 
 $(document).ready(init);
 
@@ -71,11 +129,11 @@ function revealForm(){
 }
 
 
-$.get(FIREBASE_URL, function(res){
-   Object.keys(res).forEach(function(uuid){
-   addContactsToTable(uuid, res[uuid]);
-   });
-});
+//$.get(FIREBASE_URL, function(res){
+   //Object.keys(res).forEach(function(uuid){
+   //addContactsToTable(uuid, res[uuid]);
+   //});
+//});
 
 function addContactsToTable(uuid, data) {
    var $tr = $('<tr><td><img src="' + data.photo + '"></td><td>' + data.name + '</td><td>' + data.phone + '</td><td>' + data.twitter + '</td><td>' + data.instagram + '</td><td><button class="removeButton">Remove</button></td></tr>');
