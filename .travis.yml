@@ -13,8 +13,10 @@ after_script:
   - cat ./coverage/PhantomJS*/lcov.info | ./node_modules/codeclimate-test-reporter/bin/codeclimate.js
 after_success:
   - npm install -g firebase-tools
-  - if [[ "$TRAVIS_PULL_REQUEST" == "false" ]] && [[ "$TRAVIS_BRANCH" == "master" ]]; then npm run-script build; fi
+  - if [[ "$TRAVIS_PULL_REQUEST" == "false" ]] && [[ "$TRAVIS_BRANCH" == "master" ]] then npm run deploy; fi
 env:
   global:
     - secure: d//z0ABD6Oi408zBYqsoG7PQjZSxh0PD1AYWQtiKmgJ4Yw1gvssKr6bVdOF+F9ZPgDeyG5CMdY5OxImoQLoN80teFUJ4Ar8vsOlNjkyPeg1RrsowvAihhtKcPPGLQf/cJScJzOCNtuxPbWJIzo1d99oAxPQiyN+suAlW/4Vwgm8=
     - secure: l41F1W5kATQsLFd2cTeQzvU7lWOGvAsvyjKvB3TsSIEg0nuySIZ1nGx/ss5V8DKT99Xxqu6WzRzwE4zYvidRAf24rnu7vpRauLKQlYbnF+OwJZuCpkUcyw5hBDMwmWmhJnVdCfi4O4iR3u82hL1SOfd4O2rrwAFgTbIZ8oF7zxs=
+    - secure: nO1xAxk8V/Q07iy1K0Z35utHZ3b8iKTiWOb1om1z0RcWWQZvQjYg0uU7omeEloP5p2V5MNpNWDykbTlwQrwSWJ7qmWlQCl9DRI60+OlPTH8ReldaoHtQhvMyseypj+PvaTpJnjRjm87YHHMVTbVEYmFrFclHJ/2JAZ+JK6QgRdQ=
+    - secure: NI1WoqZ6F1Qa2vjvKBqa9+21TFJHX+qwTSfPbzUGCaJxEQ5cBcZz1CvDL2P+EKAs0RzoJZFc9tZDpdjJgQz0BzqVWx646LsHQHS2Jfn7S8e13M6QmUqykzD7zb18eYjvRIQGwRwTTh3AevYKxxmbjKFrXNxqhpULUxfZDxT/7vc=
