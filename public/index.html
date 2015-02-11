@@ -10,11 +10,22 @@
   </head>
   <body>
 
+  <div class="login large-6 large-centered columns">
+  <h1>Please Login or Register</h1>
+  <form>
+    <input type="email" name="email" placeholder="user@example.com" required="required"/>
+    <input type="password" name="password" placeholder="p@s$w0RD123" required="required"/>
+    <input type="button" value="Register" class="button"/>
+    <input type="submit" value="Login" class="button"/>
+  </form>
+</div>
+
   <div class="row">
-    <div>
+    <div class="loggedIn hidden large-6 large-centered columns">
       <h1>My Friends List</h1>
 
       <button id="contactForm" class="radius">Add New Contact</button>
+      <button class="logout">Logout</button>
       <div id="friendsForm">
         <form>
           <div class="row collapse">
@@ -77,6 +88,7 @@
     </tbody>
   </table>
 
+    <script src="https://cdn.firebase.com/js/client/2.1.2/firebase.js"></script>
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
     <script src="js/main.js"></script>
   </body>

@@ -21,6 +21,7 @@ removeContact();
 
 
 
+
 function submitForm(event){
   event.preventDefault();
 
@@ -48,9 +49,13 @@ function submitForm(event){
 
 
   var contacts = { name: $name, phone: $phone, twitter: $twitter, instagram: $instagram, photo: $photo };
+  var url = usersFbUrl + '.json';
   var contactList = JSON.stringify(contacts);
   $.post(url, contactList, function(res){
     $tr.attr("data-uuid", res.name)
+
+  $('input').val('');
+
   });
 
 };
@@ -65,7 +70,8 @@ function revealForm(){
   return $friendsForm;
 }
 
-$.get(url, function(res){
+
+$.get(FIREBASE_URL, function(res){
    Object.keys(res).forEach(function(uuid){
    addContactsToTable(uuid, res[uuid]);
    });
@@ -82,7 +88,6 @@ function removeContact() {
     var $tr = $(evt.target).closest('tr');
     $tr.remove();
     var uuid = $tr.data("uuid");
-    console.log(uuid);
     var fbUrl = 'https://friends-list.firebaseio.com/friends-list/' + uuid + '.json';
     $.ajax(fbUrl, {type: "DELETE"});
   });
