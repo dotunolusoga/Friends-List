@@ -4,7 +4,7 @@ function hello() {
   return 'world';
 }
 
-var url = 'https://friends-list.firebaseio.com/.json';
+var url = 'https://friends-list.firebaseio.com/friends-list.json';
 
 $(document).ready(init);
 
@@ -16,6 +16,8 @@ function init(){
 $('#contactForm').click(revealForm);
 
 $('#submitButton').click(submitForm);
+
+removeContact();
 
 
 
@@ -39,6 +41,8 @@ function submitForm(event){
   $tr.append($tdTwitter);
   var $tdInstagram = $('<td>' + $instagram + '</td>');
   $tr.append($tdInstagram);
+  var $tdRemove    = $('<button>Remove</button>');
+  $tr.append($tdRemove);
 
   $('.target').append($tr);
 
@@ -46,7 +50,7 @@ function submitForm(event){
   var contacts = { name: $name, phone: $phone, twitter: $twitter, instagram: $instagram, photo: $photo };
   var contactList = JSON.stringify(contacts);
   $.post(url, contactList, function(res){
-    $tr.attr('data-uuid', res.name)
+    $tr.attr("data-uuid", res.name)
   });
 
 };
@@ -61,14 +65,25 @@ function revealForm(){
   return $friendsForm;
 }
 
-$.get(url, function(data){
-   Object.keys(data).forEach(function(uuid){
-   addContactsToTable(uuid, data[uuid]);
+$.get(url, function(res){
+   Object.keys(res).forEach(function(uuid){
+   addContactsToTable(uuid, res[uuid]);
    });
 });
 
 function addContactsToTable(uuid, data) {
    var $tr = $('<tr><td><img src="' + data.photo + '"></td><td>' + data.name + '</td><td>' + data.phone + '</td><td>' + data.twitter + '</td><td>' + data.instagram + '</td><td><button class="removeButton">Remove</button></td></tr>');
-      //addRowToTable(uuid, data[uuid]);
+   $tr.attr("data-uuid", uuid);
    $('.target').append($tr);
 };
+
+function removeContact() {
+  $('tbody').on('click', '.removeButton', function(evt){
+    var $tr = $(evt.target).closest('tr');
+    $tr.remove();
+    var uuid = $tr.data("uuid");
+    console.log(uuid);
+    var fbUrl = 'https://friends-list.firebaseio.com/friends-list/' + uuid + '.json';
+    $.ajax(fbUrl, {type: "DELETE"});
+  });
+}
