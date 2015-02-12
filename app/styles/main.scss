@@ -15,10 +15,11 @@ table {
 
 h1, h2, h3 {
  font-family: "Lucida Console", Monaco, monospace;
+ font-weight: light;
 }
 
 .button {
- background-color: #1BC0CC;
+ background-color: #4BE0EB
 }
 
 th, td {
@@ -30,4 +31,9 @@ th, td {
  border: 1px solid lightgray;
  margin-top: 20px;
  box-shadow: 5px 5px 0 0 lightgray;
+}
+
+img {
+  height: 100px;
+  width: 100px;
 }

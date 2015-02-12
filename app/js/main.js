@@ -17,6 +17,7 @@ var FIREBASE_URL = 'https://friends-list.firebaseio.com',
 if (fb.getAuth()) {
   $('.login').remove();
   $('.app').toggleClass('hidden');
+  $('.tableContacts').toggleClass('hidden');
 
   usersFbUrl = FIREBASE_URL + '/users/' + fb.getAuth().uid + '/data';
 
@@ -64,6 +65,21 @@ $('.logout').click(function omghaha(){
   location.reload(true);
 })
 
+function registerAndLogin(obj, cb) {
+  fb.createUser(obj, function(err) {
+    if (!err) {
+      fb.authWithPassword(obj, function (err, auth){
+        if (!err) {
+          cb(null, auth);
+        } else {
+          cb(err);
+        }
+      });
+    } else {
+      cb(err);
+    }
+  });
+}
 $(document).ready(init);
 
 function init(){
@@ -128,12 +144,6 @@ function revealForm(){
   return $friendsForm;
 }
 
-
-//$.get(FIREBASE_URL, function(res){
-   //Object.keys(res).forEach(function(uuid){
-   //addContactsToTable(uuid, res[uuid]);
-   //});
-//});
 
 function addContactsToTable(uuid, data) {
    var $tr = $('<tr><td><img src="' + data.photo + '"></td><td>' + data.name + '</td><td>' + data.phone + '</td><td>' + data.twitter + '</td><td>' + data.instagram + '</td><td><button class="removeButton">Remove</button></td></tr>');
