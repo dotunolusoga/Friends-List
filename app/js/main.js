@@ -12,7 +12,7 @@ function hello() {
 
 var FIREBASE_URL = 'https://friends-list.firebaseio.com',
     fb           = new Firebase(FIREBASE_URL),
-    token        = fb.getAuth().token,
+    token,
     usersFbUrl;
 
 if (fb.getAuth()) {
@@ -21,8 +21,9 @@ if (fb.getAuth()) {
   $('.tableContacts').toggleClass('hidden');
 
   usersFbUrl = FIREBASE_URL + '/users/' + fb.getAuth().uid + '/data';
+  token        = fb.getAuth().token;
 
-  $.get(usersFbUrl + '.json?auth' + token, function (res) {
+  $.get(usersFbUrl + '.json?auth=' + token, function (res) {
     Object.keys(res).forEach(function (uuid) {
       addContactsToTable(uuid, res[uuid]);
     });
@@ -124,7 +125,7 @@ function submitForm(event){
 
 
   var contacts = { name: $name, phone: $phone, twitter: $twitter, instagram: $instagram, photo: $photo };
-  var url = usersFbUrl + '.json?auth' + token;
+  var url = usersFbUrl + '.json?auth=' + token;
   var contactList = JSON.stringify(contacts);
   $.post(url, contactList, function(res){
     $tr.attr("data-uuid", res.name)
@@ -157,7 +158,7 @@ function removeContact() {
     var $tr = $(evt.target).closest('tr');
     $tr.remove();
     var uuid = $tr.data("uuid");
-    var fbUrl = FIREBASE_URL + '/users/' + fb.getAuth().uid + '/data/' + uuid + '.json?auth' + token;
+    var fbUrl = FIREBASE_URL + '/users/' + fb.getAuth().uid + '/data/' + uuid + '.json?auth=' + token;
     $.ajax(fbUrl, {type: "DELETE"});
   });
 }
