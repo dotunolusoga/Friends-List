@@ -20,7 +20,7 @@ if (fb.getAuth()) {
 
   usersFbUrl = FIREBASE_URL + '/users/' + fb.getAuth().uid + '/data';
 
-  $.get(usersFbUrl + '/friends-list.json', function (res) {
+  $.get(usersFbUrl + '.json', function (res) {
     Object.keys(res).forEach(function (uuid) {
       addContactsToTable(uuid, res[uuid]);
     });
@@ -100,7 +100,7 @@ function submitForm(event){
   $tr.append($tdTwitter);
   var $tdInstagram = $('<td>' + $instagram + '</td>');
   $tr.append($tdInstagram);
-  var $tdRemove    = $('<button>Remove</button>');
+  var $tdRemove    = $('<button class="button">Remove</button>');
   $tr.append($tdRemove);
 
   $('.target').append($tr);
@@ -146,7 +146,7 @@ function removeContact() {
     var $tr = $(evt.target).closest('tr');
     $tr.remove();
     var uuid = $tr.data("uuid");
-    var fbUrl = 'https://friends-list.firebaseio.com/friends-list/' + uuid + '.json';
+    var fbUrl = FIREBASE_URL + '/users/' + fb.getAuth().uid + '/data/' + uuid + '.json';
     $.ajax(fbUrl, {type: "DELETE"});
   });
 }

@@ -1,3 +1,6 @@
+@import './foundation/scss/normalize';
+@import './foundation/scss/foundation';
+
 .hidden {
   display: none;
 }
@@ -8,4 +11,23 @@ form {
 
 table {
   margin: 50px 0;
+}
+
+h1, h2, h3 {
+ font-family: "Lucida Console", Monaco, monospace;
+}
+
+.button {
+ background-color: #1BC0CC;
+}
+
+th, td {
+  text-align: center;
+
+}
+
+.login {
+ border: 1px solid lightgray;
+ margin-top: 20px;
+ box-shadow: 5px 5px 0 0 lightgray;
 }

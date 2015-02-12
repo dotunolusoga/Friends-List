@@ -5,16 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>My Title</title>
-    <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="../bower_components/foundation/css/foundation.css">
+    <link rel="stylesheet" href="css/main.css">
   </head>
   <body>
 
   <div class="login large-6 large-centered columns">
-  <h1>Please Login or Register</h1>
+  <h2>Welcome</h2>
+  <h3>Please login to continue</h3>
   <form>
-    <input type="email" name="email" placeholder="user@example.com" required="required"/>
-    <input type="password" name="password" placeholder="p@s$w0RD123" required="required"/>
+    <label>*Email:</label>
+    <input type="email" name="email" placeholder="Enter email" required="required"/>
+    <label>*Password:</label>
+    <input type="password" name="password" placeholder="Enter password" required="required"/>
     <input type="button" value="Register" class="button"/>
     <input type="submit" value="Login" class="button"/>
     <div class=".error"></div>
@@ -25,10 +28,10 @@
     <div class="app hidden large-6 large-centered columns">
       <h1>My Friends List</h1>
 
-      <button id="contactForm" class="radius">Add New Contact</button>
-      <button class="logout">Logout</button>
+      <button id="contactForm" class="button radius">Add New Contact</button>
+      <button class="button logout">Logout</button>
       <div id="friendsForm">
-        <form>
+        <form action="#">
           <div class="row collapse">
             <div class="small-3 columns">
               <span class="prefix">Name</span>
@@ -75,7 +78,7 @@
     </div>
   </div>
 
-  <table class="large-9 columns centered">
+  <table class="large-9 large-centered columns">
     <thead>
       <tr>
         <th>Photo</th>
@@ -83,13 +86,14 @@
         <th>Phone</th>
         <th>Twitter</th>
         <th>Instagram</th>
+        <th></th>
       <tr>
     </thead>
     <tbody class="target">
     </tbody>
   </table>
-    <script src="../../public/vendor/firebase.js"></script>
-    <script src="../../public/vendor/jquery.min.js"></script>
-    <script src="../../public/js/main.js"></script>
+    <script src="./vendor/firebase.js"></script>
+    <script src="./vendor/jquery.min.js"></script>
+    <script src="./js/main.js"></script>
   </body>
 </html>
